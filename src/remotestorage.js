@@ -71,7 +71,8 @@
         'Caching',
         'Access',
         'Sync',
-        'BaseClient'
+        'BaseClient',
+	'Widget'
       ].map(function(featureName) {
         var impl = RemoteStorage[featureName];
         return {
