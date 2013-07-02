@@ -1,7 +1,9 @@
 
-(function() {
+(function(global) {
 
-  RemoteStorage.BaseClient = function(storage, base) {
+  var RS = RemoteStorage;
+
+  RS.BaseClient = function(storage, base) {
     if(base[base.length - 1] != '/') {
       throw "Not a directory: " + base;
     }
@@ -15,13 +17,13 @@
       this.moduleName = 'root';
     }
 
-    RemoteStorage.eventHandling(this, 'change', 'conflict');
+    RS.eventHandling(this, 'change', 'conflict');
     this.on = this.on.bind(this);
     storage.onChange(this.base, this._fireChange.bind(this));
   };
 
   /**
-   * Class: RemoteStorage.BaseClient
+   * Class: RS.BaseClient
    *
    * Provides a high-level interface to access data below a given root path.
    *
@@ -37,7 +39,7 @@
    * <remove> operates on either objects or files (but not folders, folders are
    * created and removed implictly).
    */
-  RemoteStorage.BaseClient.prototype = {
+  RS.BaseClient.prototype = {
     
     extend: function(object) {
       for(var key in object) {
@@ -47,7 +49,7 @@
     },
 
     scope: function(path) {
-      return new RemoteStorage.BaseClient(this.storage, this.makePath(path));
+      return new RS.BaseClient(this.storage, this.makePath(path));
     },
 
     // folder operations
@@ -115,8 +117,10 @@
       });
     },
 
-    storeObject: function(mimeType, path, object) {
-      return this.storage.put(this.makePath(path), object, mimeType).then(function(status, _body, _mimeType, revision) {
+    storeObject: function(typeAlias, path, object) {
+      console.log('storeObject in ', this);
+      this._attachType(object, typeAlias);
+      return this.storage.put(this.makePath(path), object, 'application/json; charset=UTF-8').then(function(status, _body, _mimeType, revision) {
         if(status == 200 || status == 201) {
           return revision;
         } else {
@@ -142,9 +146,9 @@
   };
 
   /**
-   * Method: RemoteStorage#scope
+   * Method: RS#scope
    *
-   * Returns a new <RemoteStorage.BaseClient> scoped to the given path.
+   * Returns a new <RS.BaseClient> scoped to the given path.
    *
    * Parameters:
    *   path - Root path of new BaseClient.
@@ -168,9 +172,9 @@
    */
 
 
-  RemoteStorage.BaseClient._rs_init = function() {
-    RemoteStorage.prototype.scope = function(path) {
-      return new RemoteStorage.BaseClient(this, path);
+  RS.BaseClient._rs_init = function() {
+    RS.prototype.scope = function(path) {
+      return new RS.BaseClient(this, path);
     };
   };
 
@@ -185,4 +189,4 @@
   });
   */
 
-})();
+})(this);

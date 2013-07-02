@@ -19,7 +19,7 @@
       }
     },
 
-    delete: function(path) {
+    'delete': function(path) {
       if(this.caching.cachePath(path)) {
         return this.local.delete(path).then(function() {
           RemoteStorage.sync.push(this.local, this.remote, path);
@@ -31,7 +31,7 @@
   }
 
   var RemoteStorage = function() {
-    RemoteStorage.eventHandling(this, 'ready', 'connected', 'disconnected');
+    RemoteStorage.eventHandling(this, 'ready', 'connected', 'disconnected', 'conflict');
     // pending get/put/delete calls.
     this._pending = [];
     this._setGPD({
@@ -193,7 +193,7 @@
     },
 
     _dispatchChange: function(event) {
-      console.log('dispatch change', event, '(handlers: ', Object.keys(this._pathHandlers), ')');
+      console.log('change', event);
       for(var path in this._pathHandlers) {
         var pl = path.length;
         this._pathHandlers[path].forEach(function(handler) {

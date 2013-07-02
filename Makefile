@@ -15,9 +15,13 @@ buildserver:
 build-all:
 	curl -X POST -d 'groups=core&groups=widget&groups=baseclient&groups=caching&groups=modules&groups=debug' http://localhost:8000/ -o remotestorage.js
 
+minify:
+	uglifyjs remotestorage.js -o remotestorage.min.js --mangle --wrap --export-all
+
 
 compile-assets: $(ASSETS_DIR)/*
 	$(NODEJS) build/compile-assets.js $(ASSETS_DIR) $(ASSETS_OUT)
 
 
-.PHONY: help buildserver build-all compile-assets
+.PHONY: help buildserver build-all compile-assets minify
+
