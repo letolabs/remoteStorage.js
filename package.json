@@ -1,0 +1,15 @@
+{
+  "name": "remoteStorage.js",
+  "version": "0.8.0-pre",
+  "devDependencies": {
+    "sqlite3": "*",
+    "requirejs": "*",
+    "amdefine": "*",
+    "teste": "*",
+    "localStorage": "*",
+    "jsindexeddb": "*"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/teste"
+  }
+}
