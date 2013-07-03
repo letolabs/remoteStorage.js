@@ -9,6 +9,7 @@ help:
 	@echo "buildserver    - start build server (running on port 8000)"
 	@echo "build-all      - download complete build from build server"
 	@echo "compile-assets - compile $(ASSETS_DIR)/* into $(ASSETS_OUT)"
+
 buildserver:
 	cd build/ && node server.js
 
@@ -18,10 +19,12 @@ build-all:
 minify:
 	uglifyjs remotestorage.js -o remotestorage.min.js --mangle --wrap --export-all
 
+build:
+	$(NODEJS) build/do-build.js core widget baseclient caching modules debug
 
 compile-assets: $(ASSETS_DIR)/*
 	$(NODEJS) build/compile-assets.js $(ASSETS_DIR) $(ASSETS_OUT)
 
 
-.PHONY: help buildserver build-all compile-assets minify
+.PHONY: help buildserver build-all compile-assets minify build
 
