@@ -1,9 +1,17 @@
 {
-  "name": "remoteStorage.js",
+  "name": "remotestoragejs",
+  "desc": "a client side javascript library for the remote-storage protocol",
   "version": "0.8.0-pre",
   "devDependencies": {
     "teste": "*"
   },
+  "private": false,
+  "license": "AGPL or MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/remotestorage/remotestorage.js.git"
+  },
+ "homepage": "http://remotestorage.io",
   "scripts": {
     "test": "node_modules/.bin/teste"
   }
