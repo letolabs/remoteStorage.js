@@ -5,6 +5,18 @@
   "devDependencies": {
     "teste": "*"
   },
+  "testling": { "files": "test/unit/*.js",
+    "browsers": {
+                  "firefox":            [ 18, 19, "nightly" ],
+                  "chrome":             [ 24, 25, "canary"  ],
+                  "safari":             [ 4, "5.1", 6       ],
+                  "opera":              [ 11, 12, "next"    ],
+                  "ie":                 [ 8, 9, 10, 11      ],
+                  "iphone":             [ 6                 ],
+                  "ipad":               [ 6                 ],
+                  "android-browser":    [ "4.2"             ]
+                }
+  },
   "private": false,
   "license": "AGPL or MIT",
   "repository": {
